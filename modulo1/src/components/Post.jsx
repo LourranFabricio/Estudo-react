@@ -7,9 +7,7 @@ import { Avatar } from './Avatar';
 import { useState } from 'react';
 
 export function Post({author,publishedAt, content}){
-    const [comments, setComments]= useState([
-        'Fodase'
-    ])
+    const [comments, setComments]= useState([]);
     const [newCommentText, setNewCommmentText] = useState('')
     
     const publishedDateFormatted = format(publishedAt,"d 'de' LLLL 'às' HH:mm'h'",
@@ -28,6 +26,7 @@ export function Post({author,publishedAt, content}){
     }
 
     function handleNewCommentChange(){
+        event.target.setCustomValidity('');
         setNewCommmentText(event.target.value);
     }
 
@@ -36,6 +35,10 @@ export function Post({author,publishedAt, content}){
             return comment != commentToDelete;
         })
         setComments(commentsWithoutDeleteOne);
+    }
+
+    function handleNewCommentInvalid(){
+        event.target.setCustomValidity("Esse campo é obrigatório!");
     }
 
     return(
@@ -73,9 +76,13 @@ export function Post({author,publishedAt, content}){
                     placeholder='Deixe um comentário'
                     onChange={handleNewCommentChange}
                     value={newCommentText}
+                    required
+                    onInvalid={handleNewCommentInvalid}
                 />
                 <footer>
-                    <button type='submit'>Publicar</button>
+                    <button type='submit' disabled={newCommentText.length === 0}>
+                        Publicar
+                    </button>
                 </footer>
             </form>
 
