@@ -6,12 +6,13 @@ import ClipBoard from '../assets/Clipboard.svg'
 import { useState } from 'react'
 import { Task } from './Task'
 
-let display = false;
+let display = true;
 
 export function CreateTask(){
     const [text, setText] = useState('');
     const [arrayTask, setArrayTask] = useState([]);
     const [counter, setCounter] = useState(0);
+    const [completedCounter, setCompletedTask] = useState(0);
 
     function handleSubmit(event){
         event.preventDefault();
@@ -23,6 +24,17 @@ export function CreateTask(){
         else display = true;
     }
 
+    function deleteTask(taskToDelete){
+        const taskWithoutDeleteOne = arrayTask.filter(task =>{
+            return task != taskToDelete;
+        })
+        setArrayTask(taskWithoutDeleteOne);
+        setCounter(counter-1); // Altera o valor das tarefas criadas
+    }
+
+    function completedTask(value){
+        setCompletedTask(completedCounter+value);
+    }
 
 
     return(
@@ -49,10 +61,10 @@ export function CreateTask(){
             </span>
             <span className={styles.span}>
                 Concluídas
-                <div className={styles.containerCount}>0</div>
+                <div className={styles.containerCount}>{completedCounter} {'    '} de {'    '} {counter} </div>
             </span>
         </header>
-        <div className={styles.containerTask}>
+        <div className={counter > 0 ? styles.containerTask : styles.containerWihoutTask}>
             {display && 
                 <div className={styles.conditionContainer}>
                 <img src={ClipBoard} alt="Clipboard" />
@@ -68,6 +80,8 @@ export function CreateTask(){
                         <Task
                             key={task}
                             content={task}
+                            onDeleteTask={deleteTask}
+                            onCompletedTask={completedTask}
                         />
                     )
                 })
