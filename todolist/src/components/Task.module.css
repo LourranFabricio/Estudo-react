@@ -1,0 +1,53 @@
+
+.section{
+    margin-top: 10px;
+    width: 730px;
+    height: 80px;
+    background: var(--gray-400);
+    border-radius: 8px;
+    border: 2px solid #808080;
+
+    display: flex;
+    gap: 15px;
+}
+
+.btnCheck{
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    background: none;
+    border: 3px solid #4EA8DE;
+}
+
+.btnCheck:hover{
+    cursor: pointer;
+}
+
+.btnChecked{
+    background: var(--purple);
+    border: none;
+}
+
+textarea{
+    margin-top: 14px;
+    background: none;
+    border: none;
+    resize: none;
+    color: var(--gray-200);
+    font-size: 16px;
+}
+
+.deleteButton{
+    background: none;
+    border: none;
+    color: var(--gray-300);
+    margin-right: 10px;
+    margin-bottom: 15px;
+}
+
+.deleteButton:hover{
+    cursor: pointer;
+    color: var(--danger);
+}
